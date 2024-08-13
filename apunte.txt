@@ -1,0 +1,84 @@
+/** CLASE 2 - STORAGE  **/
+
+
+Memory storage
+
+
+El almacenamiento de una sesión por memory storage es exactamente igual a la persistencia 
+en memoria que trabajamos la clase pasada. 
+Es un almacenamiento muy peligroso, ya que si el servidor muere o se reinicia, 
+la sesión morirá con él y no habrá forma de recuperarla.
+
+
+¿Cómo solucionar el problema de memory storage?
+
+Una vez entendido el carácter de riesgo de almacenar una sesión en memoria, 
+nos surge la duda: ¿cómo podríamos hacer persistir estas sesiones para evitar 
+cualquier tema en el reinicio o caída repentina de un servidor?
+
+
+Para dar solución a este inconveniente en la persistencia de datos, vamos a utilizar File Storage, 
+es decir, guardar nuestra sesión en un archivo, para poder consultar las sessions de un lado
+ diferente a la memoria del servidor.
+
+
+El File storage permitirá dar una persistencia de archivos a las sesiones que trabajamos, 
+esto hará que el servidor pueda tomarlas de algún lado en caso de que algo inesperado 
+llegase a pasar (un reinicio, o una caída).
+
+Así, los usuarios pueden seguir haciendo consultas con sus sessionid, y el servidor podrá 
+consultarlas del archivo que persiste en éste.
+Es un recurso simple y que tiene sus defectos, sin embargo, es una solución 
+sencilla para resolver el asunto de sesiones, sin tener que ocupar recursos de terceros.
+
+
+
+
+Partiremos de hacer la instalación habitual con npm con el comando: 
+npm i session-File-store 
+
+
+Posteriormente, inicializamos el fileStore como lo indica la imagen, esto 
+utilizando los tres argumentos principales:
+path, ttl, retires
+
+
+Utilizando File Storage podemos notar que: 
+
+Aun cuando reiniciemos el servidor, la sesión persistirá en el tiempo indicado
+
+Cuando llegue a expirar una sesión, el servidor generará un nuevo 
+archivo con la consulta, indicando el nuevo sessionId.
+
+
+Los archivos viejos no se limpian automáticamente, quedan en un cementerio de registros, 
+lo cual puede generar complicaciones futuras.
+
+
+El siguiente paso para guardar sesiones
+¡Seguro ya lo habías pensado! Si FileSystem terminará generando conflictos, 
+¿podría solucionarse con bases de datos? La respuesta es: sí, ¡y en qué forma!
+
+Session puede trabajar de la mano de MongoDB para poder guardar una sesión en una base de datos, 
+esto permitirá que las sesiones tengan una gestión más limpia, además de poder contar con 
+autoeliminación de sesiones expiradas. 
+
+
+Lo primero será contar con nuestra connection string
+En este punto, podremos utilizar Mongo Atlas como DB en la nube. 
+Si no contamos con un usuario en Mongo Atlas procederemos a crear una cuenta 
+gratuita siguiendo los pasos enlistados a continuación…
+
+
+---------------------------------------------------------------------------------
+
+Clase 3 - Autenticación: ¡Identifícate! 
+
+La autenticación es el primer paso dentro de la vida de una sesión del cliente y el servidor. 
+Para que un cliente pueda autenticarse, debe existir un registro previo 
+almacenado en algún lado. El cliente envía un identificador (como un email) 
+y el servidor lo buscará en su base de datos para saber si sí existe previamente. 
+En caso de que sí, podrá responder con sus credenciales completas (no sensibles).
+
+En caso de que un cliente intente autenticarse antes de haber generado un registro, 
+el servidor no lo encontrará en la base y no habrá credenciales por devolverle.
