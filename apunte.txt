@@ -121,7 +121,8 @@ Para ello, antes de guardar el password, se debe procesar éste con una operaci�
 
 
 npm install bcrypt
-
+----------------------------------------------------------------------------------------------
+                                    Clase 5 Passport
 Qué es JWT?
 
 JsonWebToken es una implementación sin estado para poder mantener el ciclo de vida de la 
