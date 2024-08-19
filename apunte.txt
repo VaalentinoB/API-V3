@@ -82,3 +82,27 @@ En caso de que sí, podrá responder con sus credenciales completas (no sensible
 
 En caso de que un cliente intente autenticarse antes de haber generado un registro, 
 el servidor no lo encontrará en la base y no habrá credenciales por devolverle.
+
+Autorización: definiendo el alcance de cada usuario
+
+La autorización es el proceso por el cual el servidor decide si, 
+a pesar de las credenciales que tienes, tienes permitido acceder a un 
+recurso o no. Es decir, que autorizar no hace referencia a que el servidor no sepa quién eres. 
+
+Debemos tener conjuntos de servicios jerarquizados para:
+-Usuarios comunes.
+-Usuarios premium (si trabajamos con un sistema de jerarquías)
+-Administrador
+
+O por ejemplo
+Un empleado.
+Un jefe
+Un administrador.
+
+Al ser procesos diferentes, no olvidemos que deben tener un código de status diferentes también:
+
+-Para procesos fallidos de autenticación: 401
+
+Para usuarios rechazados por querer acceder a un recurso no autorizado: 403
+
+Los status no son intercambiables. Nunca los uses a la ligera 
