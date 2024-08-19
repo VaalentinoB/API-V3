@@ -106,3 +106,51 @@ Al ser procesos diferentes, no olvidemos que deben tener un código de status di
 Para usuarios rechazados por querer acceder a un recurso no autorizado: 403
 
 Los status no son intercambiables. Nunca los uses a la ligera 
+
+
+res.session.destroy() <-- Eso destruye todas las sessiones
+
+Bcrypt - Proteger las contraseñas
+
+
+Por protección de datos, debemos guardar un password de manera que no pueda ser visualizado, 
+ni siquiera por nosotros mismos. 
+
+
+Para ello, antes de guardar el password, se debe procesar éste con una operación conocida como hash
+
+
+npm install bcrypt
+
+Qué es JWT?
+
+JsonWebToken es una implementación sin estado para poder mantener el ciclo de vida de la 
+sesión de un usuario, sin el almacenamiento que este implica 
+
+
+Funciona de una manera diferente en session:
+El servidor generará un token con la información del usuario y la enviará al navegador.
+El navegador (front) almacenará dicho token y procederá a enviarlo en cada request por medio 
+de los headers.
+El servidor recibe las peticiones, busca el token de jwt en los headers. Si lo encuentra, 
+podrá proceder, si no, entonces requerirá autenticación nuevamente.
+
+
+La necesidad de almacenar las sesiones de lado del servidor o de una base de datos genera conflictos:
+
+
+Almacenamiento innecesario: Almacenar por miles, cientos de miles, o millones de usuarios, 
+puede ser problemático a nivel almacenamiento. 
+Tráfico saturado: Al vivir en una base de datos, session debe conectar con ella siempre 
+que haya que consultar una sesión. 
+Puede implicar detalles de rendimiento o requerir particiones de más.
+
+JWT delega responsabilidad a cada cliente
+
+Para aligerar el peso de la operación, el servidor puede otorgar el token de acceso al cliente y 
+éste almacenarlo dentro del navegador en una cookie
+
+Así, el cliente tiene la responsabilidad de enviar sus credenciales con los datos de la sesión a 
+manera de stateless. El servidor solo necesita descifrar el token para poder acceder a las 
+credenciales del usuario. Esto le permite al servidor ser más ágil.
+

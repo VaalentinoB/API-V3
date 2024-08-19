@@ -1,5 +1,5 @@
 import express from "express"
-import cookieParser from "cookie-parser"
+import cookieParser from "cookie-parser";
 import session from "express-session"
 import FileStore from "session-file-store";
 import MongoStore from "connect-mongo";
